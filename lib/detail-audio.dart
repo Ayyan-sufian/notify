@@ -16,30 +16,43 @@ class detailAudio extends StatefulWidget {
 
 class detailAudioState extends State<detailAudio> {
   bool isToggeled = false;
+  bool isCliked = false;
   List popularBook = [];
   List<IconData> _icon = [
     Icons.favorite_border,
     Icons.favorite,
     Icons.star,
+    CupertinoIcons.star,
     Icons.share,
   ];
 
   Widget btnFav() {
     return IconButton(
       onPressed: () {
-        if (isToggeled == false) {
-          setState(() {
-            isToggeled = true;
-          });
-        } else if (isToggeled == true) {
-          setState(() {
-            isToggeled = false;
-          });
-        }
+        setState(() {
+          isToggeled = !isToggeled; // Toggle between true and false
+        });
       },
-      icon: isToggeled == false
-          ? Icon(_icon[0], size: 50, color: Colors.black)
-          : Icon(_icon[1], size: 50, color: Colors.black),
+      icon: Icon(
+        isToggeled ? _icon[1] : _icon[0], // Show different icon
+        size: 38,
+        color: isToggeled ? Colors.red : Colors.grey,
+      ),
+    );
+  }
+
+  Widget btnRat() {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          isCliked = !isCliked; // Toggle between true and false
+        });
+      },
+      icon: Icon(
+        isCliked ? _icon[3] : _icon[2], // Show different icon
+        size: 38,
+        color: isCliked ? Colors.grey : Colors.red,
+      ),
     );
   }
 
@@ -181,19 +194,11 @@ class detailAudioState extends State<detailAudio> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        btnFav();
-                      },
-                      icon: Icon(_icon[0], size: 38, color: Colors.black),
-                    ),
+                    btnFav(),
+                    btnRat(),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(_icon[2], size: 38, color: Colors.black),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(_icon[3], size: 38, color: Colors.black),
+                      icon: Icon(_icon[4], size: 38, color: Colors.black),
                     ),
                   ],
                 ),
