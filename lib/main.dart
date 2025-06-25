@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notify_project/splash-screen.dart';
 
-import 'audio-file.dart';
-import 'detail-audio.dart';
-import 'my-home-page.dart';
-
 void main() {
   runApp(const MyApp());
 }

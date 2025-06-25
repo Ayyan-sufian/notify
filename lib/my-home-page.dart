@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:notify_project/detail-audio.dart';
-
 import 'my-tabs.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -68,7 +66,7 @@ class MyHomePageState extends State<MyHomePage>
                         Icon(Icons.widgets, size: 34, color: Colors.white),
                         Row(
                           children: [
-                            Icon(Icons.search, size: 34, color: Colors.black),
+                            Icon(Icons.search, size: 34, color: Colors.white),
 
                             MaterialButton(
                               onPressed: () {},
@@ -111,7 +109,7 @@ class MyHomePageState extends State<MyHomePage>
                       children: [
                         Positioned(
                           top: 0,
-                          left: -20,
+                          left: 0,
                           right: 0,
                           child: Container(
                             height: 180,
@@ -129,7 +127,7 @@ class MyHomePageState extends State<MyHomePage>
                                     borderRadius: BorderRadius.circular(15),
                                     boxShadow: [
                                       BoxShadow(
-                                        blurRadius: 7,
+                                        blurRadius: 5,
                                         color: Colors.grey.shade300,
                                         offset: Offset(0, 0),
                                       ),
@@ -160,10 +158,10 @@ class MyHomePageState extends State<MyHomePage>
                                 pinned: true,
                                 backgroundColor: Colors.grey.shade900,
                                 bottom: PreferredSize(
-                                  preferredSize: Size.fromHeight(50),
+                                  preferredSize: Size.fromHeight(30),
                                   child: Container(
                                     margin: EdgeInsetsGeometry.only(
-                                      bottom: 20,
+                                      bottom: 10,
                                       left: 10,
                                     ),
                                     child: TabBar(
@@ -230,7 +228,7 @@ class MyHomePageState extends State<MyHomePage>
                                       borderRadius: BorderRadius.circular(10),
                                       boxShadow: [
                                         BoxShadow(
-                                          blurRadius: 7,
+                                          blurRadius: 5,
                                           color: Colors.grey.shade300,
                                           offset: Offset(0, 0),
                                         ),
@@ -363,7 +361,7 @@ class MyHomePageState extends State<MyHomePage>
                                       borderRadius: BorderRadius.circular(10),
                                       boxShadow: [
                                         BoxShadow(
-                                          blurRadius: 7,
+                                          blurRadius: 5,
                                           color: Colors.grey.shade300,
                                           offset: Offset(0, 0),
                                         ),

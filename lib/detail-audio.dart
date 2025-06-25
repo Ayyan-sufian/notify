@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,8 @@ class detailAudio extends StatefulWidget {
   State<detailAudio> createState() => detailAudioState();
 }
 
-class detailAudioState extends State<detailAudio> {
+class detailAudioState extends State<detailAudio>
+    with SingleTickerProviderStateMixin {
   bool isToggeled = false;
   bool isCliked = false;
   List popularBook = [];
@@ -56,12 +59,22 @@ class detailAudioState extends State<detailAudio> {
     );
   }
 
-  AudioPlayer advancePlayer = AudioPlayer();
+  ReadData() {
+    DefaultAssetBundle.of(context).loadString("json/popular-book.json").then((
+      s,
+    ) {
+      setState(() {
+        popularBook = json.decode(s);
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    advancePlayer = AudioPlayer();
   }
+
+  AudioPlayer advancePlayer = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -169,40 +182,106 @@ class detailAudioState extends State<detailAudio> {
               ),
             ),
             Positioned(
-              bottom: screenHeight * 20,
+              bottom: 330,
               left: 10,
-              right: 10,
-              child: Container(
-                height: 180,
-                color: Colors.white,
-                child: Text(
-                  "Add playlist",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: screenHeight * 0.1,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(41),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Center(
+                child: Column(
                   children: [
-                    btnFav(),
-                    btnRat(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(_icon[4], size: 38, color: Colors.black),
+                    Text(
+                      "Add playlist",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
               ),
+            ),
+            Stack(
+              children: [
+                Positioned(
+                  bottom: screenHeight * 0.10,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 180,
+                    child: ListView.builder(
+                      controller: PageController(viewportFraction: 0.8),
+                      itemCount: popularBook == null ? 0 : popularBook.length,
+                      itemBuilder: (_, i) {
+                        return Container(
+                          height: 180,
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsetsGeometry.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 7,
+                                color: Colors.grey.shade300,
+                                offset: Offset(0, 0),
+                              ),
+                            ],
+                            image: DecorationImage(
+                              image: AssetImage(popularBook[i]["images"]),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // Container(
+            //   height: 180,
+            //   child: PageView.builder(
+            //     itemCount: popularBook == null ? 0 : popularBook.length,
+            //     itemBuilder: (_, i) {
+            //       return Container(
+            //         height: 100,
+            //         width: MediaQuery.of(context).size.width,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(15),
+            //
+            //           image: DecorationImage(
+            //             image: AssetImage(popularBook[i]["images"]),
+            //             fit: BoxFit.cover,
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //
+            Stack(
+              children: [
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(41),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        btnFav(),
+                        btnRat(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(_icon[4], size: 38, color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
